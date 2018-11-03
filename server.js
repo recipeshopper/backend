@@ -10,7 +10,7 @@ server.use(cors());
 const port = process.env.PORT || 3030;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://root:admin1234@ds020208.mlab.com:20208/showcase', { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect('mongodb://root:admin1234@ds041167.mlab.com:41167/recipeshopdb', { useNewUrlParser: true, useCreateIndex: true });
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
