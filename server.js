@@ -30,10 +30,26 @@ server.post('/createUser', (req, res) => {
     return res.status(200).json({ data: newUser, status: 'Success'})
 });
 
-server.post('/login', (req, res) => {
+server.put('/login', (req, res) => {
     const { username, password } = req.body;
+    User.find({ username: username })
+        .then((data) => {
+            if (!data) return res.status(400).json({ data: 'Failed to login, this might be the servers fault', status: 'failed' });
+                res.status(200).json({ data: data, status: 'success' });
+        })
+        .catch((err) => {
+            if (err) return res.status(400).json({ data: 'Failed to login, this might be the servers fault', status: 'failed' });
+        })
+});
+
+server.listen(port, () => {
+    console.log(`Server is up and running on ${port}`);
+  });
+  
+  /*
+v    const { username, password } = req.body;
     if (!username, !password ) return res.status(400).json({ data:'input username or password', status: 'failed' });
-    User.findOne({ username })
+    User.find({})
         .then((err, data) => {
             if (err || !data) return res.status(400).json({ data: 'could not log in. incorrect password or username', status: 'failed' });
             return res.status(200).json({ data: data, status: 'success' });
@@ -41,9 +57,4 @@ server.post('/login', (req, res) => {
         .catch(err => {
             return res.status(400).json({ data: 'could not log in. incorrect password or username', status: 'failed' });
         })
-})
-
-server.listen(port, () => {
-    console.log(`Server is up and running on ${port}`);
-  });
-  
+  */
