@@ -17,7 +17,10 @@ const login = (req, res) => {
     const { username, password } = req.body;
     User.findOne({ username: username })
         .then((data) => {
-            if (!data) return res.status(400).json({ data: 'Failed to login, this might be the servers fault', status: 'failed' });
+            if (!data) return res.status(400).json({ data: 'Failed to login', status: 'failed' });
+                if (data.password !== password) {
+                    return res.status(400).json({ data: 'Failed to login', status: 'failed' });
+                }
                 res.status(200).json({ data: data, status: 'success' });
         })
         .catch((err) => {
