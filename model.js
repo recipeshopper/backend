@@ -1,5 +1,9 @@
 const mongoose = require('mongoose'); Schema = mongoose.Schema;
 
+const Recipe = new Schema ({
+    list: [ String ]
+});
+
 const UserSchema =  new Schema ({
     username: {
         type: String,
@@ -9,7 +13,8 @@ const UserSchema =  new Schema ({
     password: {
         type: String,
         required: true,
-    }
+    },
+    recipeList: [ Recipe ]
 });
 
 module.exports = mongoose.model('UserSchema', UserSchema);
